@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	[Header("Standart")]
+	public float gravity;
+
 	[Header("Movement")]
 	public float speed;
 	private bool canMove = true;
@@ -24,6 +27,13 @@ public class PlayerController : MonoBehaviour
 	public float wallSlideSpeed;
 	public bool isWallSliding;
 
+	[Header("Dash")]
+	public float dashSpeed;
+	public float dashTime;
+	private float dashTimer;
+	private bool canDash;
+	private bool isDashing;
+
 	[Header("State")]
 	public string state = "dark";
 
@@ -41,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Directions")]
 	private int facingDir = 1;
+	private Vector2 dashDir;
 
 	[Header("Components")]
 	private Rigidbody2D rb;
@@ -64,6 +75,11 @@ public class PlayerController : MonoBehaviour
 		Checks();
 		Jump();
 
+		if (isGrounded)
+		{
+			canDash = true;
+		}
+
 		if (!isGrounded && isOnWall && move.x != 0 && rb.velocity.y < 0)
 		{
 			isWallSliding = true;
@@ -86,7 +102,37 @@ public class PlayerController : MonoBehaviour
 
 			isWallJumping = true;
 
-			StartCoroutine("StopMove");
+			StartCoroutine("StopMoveWall");
+		}
+
+		if (canDash && Input.GetButtonDown("Dash"))
+		{
+			isDashing = true;
+			canDash = false;
+			
+			if (move.x > -0.3f && move.x < 0.3f && move.y > -0.3f && move.y < 0.3f)
+			{
+				dashDir.x = facingDir;
+			}
+			else if (move.x > 0.3f || move.x < -0.3f)
+			{
+				dashDir.x = facingDir;
+			}
+
+			if (move.y > 0.3f)
+			{
+				dashDir.y = 1;
+			}
+			else if (move.y < -0.3f)
+			{
+				dashDir.y = -1;
+			}
+
+			rb.velocity = Vector2.zero;
+
+			rb.AddForce(dashDir * dashSpeed, ForceMode2D.Impulse);
+
+			StartCoroutine("StopMoveDash");
 		}
 
 		if (move.x * facingDir < 0 && !isWallJumping)
@@ -148,7 +194,7 @@ public class PlayerController : MonoBehaviour
 
 	void Jump()
 	{
-		if (Input.GetButtonDown("Jump") && isGrounded)
+		if (Input.GetButtonDown("Jump") && isGrounded && !isDashing)
 		{
 			isJumping = true;
 			jumpTimerCounter = jumpTime;
@@ -199,7 +245,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	IEnumerator StopMove()
+	IEnumerator StopMoveWall()
 	{
 		canMove = false;
 
@@ -208,6 +254,22 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(waitTime);
 
 		isWallJumping = false;
+		canMove = true;
+	}
+
+	IEnumerator StopMoveDash()
+	{
+		canMove = false;
+		rb.gravityScale = 0f;
+
+		yield return new WaitForSeconds(dashTime);
+
+		rb.gravityScale = gravity;
+
+		rb.velocity = Vector2.zero;
+		dashDir = Vector2.zero;
+
+		isDashing = false;
 		canMove = true;
 	}
 
