@@ -1,0 +1,88 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Dissolve : MonoBehaviour
+{
+	[ColorUsageAttribute(true, true)]
+	public Color[] colors;
+
+	public PlayerController player;
+	public GameObject lightComponent;
+
+	private bool isDissolving = false;
+	private float dissolveAmount = 1;
+
+	private SpriteRenderer lightSprite;
+	private SpriteRenderer darkSprite;
+
+	private Material darkDissolveMaterial;
+	private Material lightDissolveMaterial;
+
+	void Start()
+    {
+		darkSprite = GetComponent<SpriteRenderer>();
+		lightSprite = lightComponent.GetComponent<SpriteRenderer>();
+		darkDissolveMaterial = darkSprite.material;
+		lightDissolveMaterial = lightSprite.material;
+
+	}
+
+	void Update()
+	{
+		if (Input.GetButtonDown("Dissolve"))
+		{
+			isDissolving = true;
+		}
+
+		if (isDissolving)
+		{
+			if (player.state == "dark")
+			{
+				dissolveAmount -= Time.deltaTime * 2.5f;
+
+				if (lightSprite.enabled == false)
+				{
+					lightSprite.enabled = true;
+				}
+
+				if (dissolveAmount <= 0)
+				{
+					dissolveAmount = 0;
+					player.state = "light";
+					darkSprite.sortingOrder = -1;
+					lightSprite.sortingOrder = 1;
+					darkSprite.enabled = false;
+					dissolveAmount = 1;
+					isDissolving = false;
+				}
+
+				darkDissolveMaterial.SetFloat("_dissolveAmount", dissolveAmount);
+				darkDissolveMaterial.SetColor("_Color", colors[0]);
+			}
+			else
+			{
+				dissolveAmount -= Time.deltaTime * 2.5f;
+
+				if (darkSprite.enabled == false)
+				{
+					darkSprite.enabled = true;
+				}
+
+				if (dissolveAmount <= 0)
+				{
+					dissolveAmount = 0;
+					player.state = "dark";
+					lightSprite.sortingOrder = -1;
+					darkSprite.sortingOrder = 1;
+					lightSprite.enabled = false;
+					dissolveAmount = 1;
+					isDissolving = false;
+				}
+
+				lightDissolveMaterial.SetFloat("_dissolveAmount", dissolveAmount);
+				lightDissolveMaterial.SetColor("_Color", colors[1]);
+			}
+		}
+	}
+}
