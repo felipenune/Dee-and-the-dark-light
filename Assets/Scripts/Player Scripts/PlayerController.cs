@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
 	[Header("Dash")]
 	public float dashSpeed;
 	public float dashTime;
+	public RippleEffect ripple;
 	private float dashTimer;
 	private bool canDash;
 	private bool isDashing;
@@ -129,7 +130,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			rb.velocity = Vector2.zero;
-
+			ripple.Emit(Camera.main.WorldToViewportPoint(this.transform.position));
 			rb.AddForce(dashDir * dashSpeed, ForceMode2D.Impulse);
 
 			StartCoroutine("StopMoveDash");
