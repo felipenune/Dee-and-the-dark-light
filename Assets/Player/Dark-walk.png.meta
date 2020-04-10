@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: de251969ee1e6b94196c3ff3de4f5f6b
+guid: 0ee5f9f16efc8654993b3708f93adb87
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2638107755427281671
-    second: jump-dark_0
+      213: 5326863059701796767
+    second: Dark-walk_0
   - first:
-      213: 8970801190763799548
-    second: jump-dark_1
+      213: -6702211492970836004
+    second: Dark-walk_1
   - first:
-      213: -4582248690934775855
-    second: jump-dark_2
+      213: -5831125426724378108
+    second: Dark-walk_2
   - first:
-      213: 4709513223383993283
-    second: jump-dark_3
+      213: -8752428378832001036
+    second: Dark-walk_3
   - first:
-      213: -1086893122530521630
-    second: jump-dark_4
+      213: 7168489606649656304
+    second: Dark-walk_4
   - first:
-      213: 4109484275908931287
-    second: jump-dark_5
-  - first:
-      213: -1252869760119785983
-    second: jump-dark_6
-  - first:
-      213: -4470570732568091474
-    second: jump-dark_7
+      213: 2575795983562439951
+    second: Dark-walk_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -146,13 +140,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jump-dark_0
+      name: Dark-walk_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 6
         y: 0
-        width: 21
-        height: 26
+        width: 18
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,146 +154,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54f063799a84a6444a9c48903c9beed0
-      internalID: -2638107755427281671
+      spriteID: 8acb9f51e88fa2a4ab97e9f7ed8fc4a5
+      internalID: 5326863059701796767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump-dark_1
+      name: Dark-walk_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 0
-        width: 22
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8c01a8d805f8234bb62ffc359b794c9
-      internalID: 8970801190763799548
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump-dark_2
-      rect:
-        serializedVersion: 2
-        x: 67
-        y: 0
-        width: 23
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cfff40908c2137443a2f649d85075ca3
-      internalID: -4582248690934775855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump-dark_3
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 0
-        width: 20
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f9e647330a225104085aa21ba007ef6f
-      internalID: 4709513223383993283
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump-dark_4
-      rect:
-        serializedVersion: 2
-        x: 131
-        y: 3
-        width: 21
-        height: 27
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 488c456e4713cd542803d2c39e696c60
-      internalID: -1086893122530521630
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump-dark_5
-      rect:
-        serializedVersion: 2
-        x: 163
+        x: 38
         y: 1
-        width: 22
-        height: 27
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 057faa3a3a210154083848bf833391d8
-      internalID: 4109484275908931287
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump-dark_6
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 0
-        width: 23
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5da9321f63e92c1499aa3d3485584578
-      internalID: -1252869760119785983
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump-dark_7
-      rect:
-        serializedVersion: 2
-        x: 228
-        y: 0
         width: 20
-        height: 26
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,8 +175,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9931e9baa262fb048a80ca04982f095b
-      internalID: -4470570732568091474
+      spriteID: c40edbe3b5671ae4694930e736b5fe38
+      internalID: -6702211492970836004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dark-walk_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 18
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89ec452c81da0a64984d89c8d546beb4
+      internalID: -5831125426724378108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dark-walk_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 0
+        width: 18
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bdaeecb48699354780b02c6d2169408
+      internalID: -8752428378832001036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dark-walk_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 1
+        width: 17
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbce256b55620704cabed6999f7b5803
+      internalID: 7168489606649656304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dark-walk_5
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 0
+        width: 18
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bc26c11b0847d146898adb42f3cc74b
+      internalID: 2575795983562439951
       vertices: []
       indices: 
       edges: []

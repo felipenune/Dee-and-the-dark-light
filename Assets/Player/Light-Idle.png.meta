@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: 10708b2ae5b57d54c88ccc85beee8bd4
+guid: fda54c64131972a4e9f6df9700a7aadc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8841735185687370557
-    second: walk-dark_0
+      213: -7593515992224344517
+    second: Light-Idle_0
   - first:
-      213: 4476771909593039749
-    second: walk-dark_1
+      213: 3850388366290628546
+    second: Light-Idle_1
   - first:
-      213: 3398975270018358764
-    second: walk-dark_2
+      213: 6313479482039970525
+    second: Light-Idle_2
   - first:
-      213: -2755951911005393869
-    second: walk-dark_3
-  - first:
-      213: -1804487993470341985
-    second: walk-dark_4
-  - first:
-      213: 6883961173062030287
-    second: walk-dark_5
+      213: 1464510357170574761
+    second: Light-Idle_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -140,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walk-dark_0
+      name: Light-Idle_0
       rect:
         serializedVersion: 2
         x: 6
-        y: 1
-        width: 20
-        height: 25
+        y: 0
+        width: 18
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,113 +148,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2f9723e6e6c7ef46b882d2bc4b2e5ae
-      internalID: 8841735185687370557
+      spriteID: d326509cd51063348a983e9b72fe3385
+      internalID: -7593515992224344517
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk-dark_1
+      name: Light-Idle_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 1
-        width: 21
-        height: 25
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 38
+        y: 0
+        width: 19
+        height: 21
+      alignment: 9
+      pivot: {x: 0.53, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b4307e01bc659b4d9c81a2fb3284ff9
-      internalID: 4476771909593039749
+      spriteID: c9f72bade9de4844f9dce011eae38cc4
+      internalID: 3850388366290628546
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk-dark_2
+      name: Light-Idle_2
       rect:
         serializedVersion: 2
         x: 69
         y: 0
         width: 21
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 20
+      alignment: 9
+      pivot: {x: 0.58, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0051a3ed8a0221744bee2403e437bd11
-      internalID: 3398975270018358764
+      spriteID: 7d9d78290778a594cb41b309907d5eec
+      internalID: 6313479482039970525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk-dark_3
+      name: Light-Idle_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 1
-        width: 20
-        height: 25
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a25a078cee369654a8d3f46cd1e2d7fa
-      internalID: -2755951911005393869
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk-dark_4
-      rect:
-        serializedVersion: 2
-        x: 133
-        y: 1
-        width: 21
-        height: 25
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 99d3be5f035431f4bb1fb853f1bbee27
-      internalID: -1804487993470341985
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk-dark_5
-      rect:
-        serializedVersion: 2
-        x: 165
+        x: 104
         y: 0
-        width: 21
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 19
+        height: 21
+      alignment: 9
+      pivot: {x: 0.53, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de1dd2dd22f41784b8ceb71c9f675198
-      internalID: 6883961173062030287
+      spriteID: 8a9210e2c79a0a6418b9f5ace45b2acd
+      internalID: 1464510357170574761
       vertices: []
       indices: 
       edges: []

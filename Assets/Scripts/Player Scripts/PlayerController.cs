@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
 	public float wallJumpForce;
 	public Vector2 wallJumpDirection;
 	public float waitTime;
-	private bool isWallJumping;
+	public bool isWallJumping;
 
 	[Header("Wall Slide")]
 	public float wallSlideSpeed;
@@ -30,10 +31,9 @@ public class PlayerController : MonoBehaviour
 	[Header("Dash")]
 	public float dashSpeed;
 	public float dashTime;
-	public RippleEffect ripple;
-	private float dashTimer;
+	public bool isDashing;
 	private bool canDash;
-	private bool isDashing;
+	private float dashTimer;
 
 	[Header("State")]
 	public string state = "dark";
@@ -58,8 +58,24 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody2D rb;
 	private Animator anim;
 
+	[Header("Inputs")]
+	PlayerInputActions inputActions;
+	private bool holdJump;
+
 	[HideInInspector]
 	public Vector2 move;
+	private Vector2 moveInput;
+
+	private void Awake()
+	{
+		inputActions = new PlayerInputActions();
+
+		inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+		inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+
+		inputActions.Player.Jump.performed += ctx => holdJump = true;
+		inputActions.Player.Jump.canceled += ctx => holdJump = false;
+	}
 
 	void Start()
     {
@@ -69,8 +85,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-		move.x = Input.GetAxisRaw("Horizontal");
-		move.y = Input.GetAxisRaw("Vertical");
+		/*move.x = Input.GetAxisRaw("Horizontal");
+		move.y = Input.GetAxisRaw("Vertical");*/
+
+		move.x = moveInput.x;
+		move.y = moveInput.y;
 
 		Animations();
 		Checks();
@@ -90,7 +109,7 @@ public class PlayerController : MonoBehaviour
 			isWallSliding = false;
 		}
 
-		if (isWallSliding && Input.GetButtonDown("Jump"))
+		if (isWallSliding && inputActions.Player.Jump.triggered)
 		{
 			Vector2 force = new Vector2(
 				wallJumpForce * wallJumpDirection.x * -facingDir,
@@ -106,7 +125,7 @@ public class PlayerController : MonoBehaviour
 			StartCoroutine("StopMoveWall");
 		}
 
-		if (canDash && Input.GetButtonDown("Dash"))
+		if (canDash && inputActions.Player.Dash.triggered)
 		{
 			isDashing = true;
 			canDash = false;
@@ -130,7 +149,6 @@ public class PlayerController : MonoBehaviour
 			}
 
 			rb.velocity = Vector2.zero;
-			ripple.Emit(Camera.main.WorldToViewportPoint(this.transform.position));
 			rb.AddForce(dashDir * dashSpeed, ForceMode2D.Impulse);
 
 			StartCoroutine("StopMoveDash");
@@ -156,9 +174,10 @@ public class PlayerController : MonoBehaviour
 
 	void Animations()
 	{
+		anim.SetFloat("velocityY", rb.velocity.y);
+
 		if (isGrounded)
 		{
-			anim.SetBool("isJumping", false);
 
 			if (move.x != 0)
 			{
@@ -171,10 +190,10 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
-			anim.SetBool("isJumping", true);
+			anim.SetBool("Walk", false);
 		}
 
-		if (Input.GetButtonDown("Jump"))
+		if (inputActions.Player.Jump.triggered)
 		{
 			anim.SetTrigger("Jump");
 		}
@@ -195,14 +214,15 @@ public class PlayerController : MonoBehaviour
 
 	void Jump()
 	{
-		if (Input.GetButtonDown("Jump") && isGrounded && !isDashing)
+		if (inputActions.Player.Jump.triggered && isGrounded && !isDashing)
 		{
 			isJumping = true;
 			jumpTimerCounter = jumpTime;
+			rb.velocity = new Vector2(rb.velocity.x, 0f);
 			rb.velocity = Vector2.up * jumpForce;
 		}
 
-		if (Input.GetButton("Jump") && isJumping)
+		if (holdJump && isJumping && !isDashing)
 		{
 			if (jumpTimerCounter > 0)
 			{
@@ -215,7 +235,7 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		if (Input.GetButtonUp("Jump"))
+		if (!holdJump)
 		{
 			isJumping = false;
 		}
@@ -288,5 +308,14 @@ public class PlayerController : MonoBehaviour
 		{
 			Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x - checkDistance, wallCheck.position.y, wallCheck.position.z));
 		}
+	}
+
+	private void OnEnable()
+	{
+		inputActions.Enable();
+	}
+	private void OnDisable()
+	{
+		inputActions.Disable();
 	}
 }

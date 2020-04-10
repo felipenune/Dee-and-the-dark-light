@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: 444676ccc24112c4ba21abc93e045b7c
+guid: 5f14f073be490e44f88ccfe73cabdaa6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4567067932459302763
-    second: walk-white_0
+      213: 1360502478174727599
+    second: Dark-idle_0
   - first:
-      213: 6458198872131245408
-    second: walk-white_1
+      213: -2231751858725857447
+    second: Dark-idle_1
   - first:
-      213: 6846043087195106733
-    second: walk-white_2
+      213: 2045546919925926217
+    second: Dark-idle_2
   - first:
-      213: -7854811959885099730
-    second: walk-white_3
-  - first:
-      213: 5278689124847912913
-    second: walk-white_4
-  - first:
-      213: -2525327101852813988
-    second: walk-white_5
+      213: -3790796013681020323
+    second: Dark-idle_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -61,8 +55,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -140,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walk-white_0
+      name: Dark-idle_0
       rect:
         serializedVersion: 2
         x: 6
-        y: 1
-        width: 20
-        height: 25
+        y: 0
+        width: 18
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,113 +148,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 350878c0dc09d014ea6053ff8c321634
-      internalID: -4567067932459302763
+      spriteID: 0017628d4d9c8fb4c87eceb880deaa46
+      internalID: 1360502478174727599
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk-white_1
+      name: Dark-idle_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 1
-        width: 21
-        height: 25
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 38
+        y: 0
+        width: 19
+        height: 21
+      alignment: 9
+      pivot: {x: 0.53, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ed7a236dfdeb26448c3b4623b164ced
-      internalID: 6458198872131245408
+      spriteID: 5b3df7929954af648a9dd542dd6befa5
+      internalID: -2231751858725857447
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk-white_2
+      name: Dark-idle_2
       rect:
         serializedVersion: 2
         x: 69
         y: 0
         width: 21
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 20
+      alignment: 9
+      pivot: {x: 0.58, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c44be28a9394824bb56f6b23c2783bc
-      internalID: 6846043087195106733
+      spriteID: af615f0e7e926424b9217d26280bcdfe
+      internalID: 2045546919925926217
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk-white_3
+      name: Dark-idle_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 1
-        width: 20
-        height: 25
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d32637c7cbd177c46abe054681b8c4a9
-      internalID: -7854811959885099730
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk-white_4
-      rect:
-        serializedVersion: 2
-        x: 133
-        y: 1
-        width: 21
-        height: 25
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e5734cd6af6c8b049bacaa7debd5c568
-      internalID: 5278689124847912913
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk-white_5
-      rect:
-        serializedVersion: 2
-        x: 165
+        x: 104
         y: 0
-        width: 21
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 19
+        height: 21
+      alignment: 9
+      pivot: {x: 0.53, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88cd4f6995714c3458bef575b00c1157
-      internalID: -2525327101852813988
+      spriteID: 90e4297e50cd24b48a393eb657701ec0
+      internalID: -3790796013681020323
       vertices: []
       indices: 
       edges: []

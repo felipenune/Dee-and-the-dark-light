@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Light-Land
+  m_Name: Player_Fall
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,16 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 5533215846160096302, guid: 8398607fbe190b447b653498cbcfef43,
-        type: 3}
-    - time: 0.1
-      value: {fileID: 3359409964803528442, guid: 8398607fbe190b447b653498cbcfef43,
-        type: 3}
-    - time: 0.2
-      value: {fileID: -9204075132838328959, guid: 8398607fbe190b447b653498cbcfef43,
-        type: 3}
-    - time: 0.3
-      value: {fileID: -1081250537912965474, guid: 8398607fbe190b447b653498cbcfef43,
+      value: {fileID: 4763273167872413054, guid: 94feeb5522d99bf469379264fce2fea4,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -50,16 +41,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 5533215846160096302, guid: 8398607fbe190b447b653498cbcfef43, type: 3}
-    - {fileID: 3359409964803528442, guid: 8398607fbe190b447b653498cbcfef43, type: 3}
-    - {fileID: -9204075132838328959, guid: 8398607fbe190b447b653498cbcfef43, type: 3}
-    - {fileID: -1081250537912965474, guid: 8398607fbe190b447b653498cbcfef43, type: 3}
+    - {fileID: 4763273167872413054, guid: 94feeb5522d99bf469379264fce2fea4, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

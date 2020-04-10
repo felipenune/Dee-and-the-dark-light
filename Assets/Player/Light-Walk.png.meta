@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 059287459cc9a77438002cd6bf8ad235
+guid: 33ba6c6c77099894c983703096c4a248
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8426873036416177875
-    second: Idle-white_0
+      213: -4339152012525474583
+    second: Light-Walk_0
   - first:
-      213: -5075983000220734827
-    second: Idle-white_1
+      213: 5270451951310545571
+    second: Light-Walk_1
   - first:
-      213: -2143524100078134538
-    second: Idle-white_2
+      213: 960742767930336445
+    second: Light-Walk_2
   - first:
-      213: -3440221856467420187
-    second: Idle-white_3
+      213: 8736022219485603696
+    second: Light-Walk_3
+  - first:
+      213: 8801244231166666017
+    second: Light-Walk_4
+  - first:
+      213: -9135570641151718373
+    second: Light-Walk_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -134,13 +140,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle-white_0
+      name: Light-Walk_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 6
         y: 0
-        width: 21
-        height: 26
+        width: 18
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,20 +154,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd1ddb893c8139d44b0d28077f915e61
-      internalID: 8426873036416177875
+      spriteID: e46022bd5f7618749a42a221396f691e
+      internalID: -4339152012525474583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle-white_1
+      name: Light-Walk_1
       rect:
         serializedVersion: 2
-        x: 36
-        y: 0
+        x: 38
+        y: 1
         width: 20
-        height: 27
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,20 +175,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 719e2f623bcd9db458106dbc42934905
-      internalID: -5075983000220734827
+      spriteID: fb27705405505fc4fb0d5ba5d66a3c48
+      internalID: 5270451951310545571
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle-white_2
+      name: Light-Walk_2
       rect:
         serializedVersion: 2
-        x: 67
+        x: 72
         y: 0
-        width: 21
-        height: 27
+        width: 18
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b4f05bf9d7404f4696a7d184e456118
-      internalID: -2143524100078134538
+      spriteID: 09089006a6168ea4fa45622be036608b
+      internalID: 960742767930336445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle-white_3
+      name: Light-Walk_3
       rect:
         serializedVersion: 2
-        x: 99
+        x: 106
         y: 0
-        width: 22
-        height: 26
+        width: 18
+        height: 22
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,8 +217,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be5c273e253ae8d40bc21defd9107b78
-      internalID: -3440221856467420187
+      spriteID: 8d21ad8ab2d2d6843acd00e6fffd1989
+      internalID: 8736022219485603696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Light-Walk_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 1
+        width: 17
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34a1d726043e3954180ed0bcec9f920b
+      internalID: 8801244231166666017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Light-Walk_5
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 0
+        width: 18
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d87c263c46bcfda488fefde3827fd94b
+      internalID: -9135570641151718373
       vertices: []
       indices: 
       edges: []

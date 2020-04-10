@@ -6,9 +6,16 @@ public class PlayerLightMode : MonoBehaviour
 {
 	Animator anim;
 
+	PlayerInputActions inputActions;
+
 	public PlayerController player;
-    
-    void Start()
+
+	private void Awake()
+	{
+		inputActions = new PlayerInputActions();
+	}
+
+	void Start()
     {
 		anim = GetComponent<Animator>();
     }
@@ -16,10 +23,10 @@ public class PlayerLightMode : MonoBehaviour
     
     void Update()
     {
+		anim.SetFloat("velocityY", player.GetComponent<Rigidbody2D>().velocity.y);
+
 		if (player.isGrounded)
 		{
-			anim.SetBool("isJumping", false);
-
 			if (player.move.x != 0)
 			{
 				anim.SetBool("Walk", true);
@@ -31,12 +38,21 @@ public class PlayerLightMode : MonoBehaviour
 		}
 		else
 		{
-			anim.SetBool("isJumping", true);
+			anim.SetBool("Walk", false);
 		}
 
-		if (Input.GetButtonDown("Jump"))
+		if (inputActions.Player.Jump.triggered)
 		{
 			anim.SetTrigger("Jump");
 		}
+	}
+
+	private void OnEnable()
+	{
+		inputActions.Enable();
+	}
+	private void OnDisable()
+	{
+		inputActions.Disable();
 	}
 }

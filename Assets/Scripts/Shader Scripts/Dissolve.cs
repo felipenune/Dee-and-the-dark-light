@@ -19,6 +19,13 @@ public class Dissolve : MonoBehaviour
 	private Material darkDissolveMaterial;
 	private Material lightDissolveMaterial;
 
+	PlayerInputActions inputActions;
+
+	private void Awake()
+	{
+		inputActions = new PlayerInputActions();
+	}
+
 	void Start()
     {
 		darkSprite = GetComponent<SpriteRenderer>();
@@ -30,7 +37,7 @@ public class Dissolve : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetButtonDown("Dissolve"))
+		if (inputActions.Player.Dissolve.triggered)
 		{
 			isDissolving = true;
 		}
@@ -84,5 +91,14 @@ public class Dissolve : MonoBehaviour
 				lightDissolveMaterial.SetColor("_Color", colors[1]);
 			}
 		}
+	}
+
+	private void OnEnable()
+	{
+		inputActions.Enable();
+	}
+	private void OnDisable()
+	{
+		inputActions.Disable();
 	}
 }
