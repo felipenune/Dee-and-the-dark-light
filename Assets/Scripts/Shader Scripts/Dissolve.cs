@@ -10,7 +10,7 @@ public class Dissolve : MonoBehaviour
 	public PlayerController player;
 	public GameObject lightComponent;
 
-	private bool isDissolving = false;
+	public bool isDissolving = false;
 	private float dissolveAmount = 1;
 
 	private SpriteRenderer lightSprite;
@@ -65,7 +65,7 @@ public class Dissolve : MonoBehaviour
 				}
 
 				darkDissolveMaterial.SetFloat("_dissolveAmount", dissolveAmount);
-				darkDissolveMaterial.SetColor("_Color", colors[0]);
+				darkDissolveMaterial.SetColor("_Color", colors[1]);
 			}
 			else
 			{
@@ -88,7 +88,7 @@ public class Dissolve : MonoBehaviour
 				}
 
 				lightDissolveMaterial.SetFloat("_dissolveAmount", dissolveAmount);
-				lightDissolveMaterial.SetColor("_Color", colors[1]);
+				lightDissolveMaterial.SetColor("_Color", colors[0]);
 			}
 		}
 	}

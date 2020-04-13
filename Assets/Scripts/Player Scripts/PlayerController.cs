@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine.InputSystem;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,9 +16,14 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Jump")]
 	public float jumpForce;
+	public bool isJumping = false;
 	public float jumpTime;
 	private float jumpTimerCounter;
-	private bool isJumping = false;
+
+	[Header("Coyot Jump")]
+	public float coyotTime;
+	private float coyotCounter;
+	private bool jumpDelay;
 
 	[Header("Wall Jump")]
 	public float wallJumpForce;
@@ -29,6 +36,7 @@ public class PlayerController : MonoBehaviour
 	public bool isWallSliding;
 
 	[Header("Dash")]
+	public TrailRenderer dashTrail;
 	public float dashSpeed;
 	public float dashTime;
 	public bool isDashing;
@@ -36,7 +44,10 @@ public class PlayerController : MonoBehaviour
 	private float dashTimer;
 
 	[Header("State")]
+	public Dissolve dissolve;
 	public string state = "dark";
+	public float stateTime;
+	private float stateCounter;
 
 	[Header("Ground Check")]
 	public Transform groundCheck;
@@ -59,12 +70,14 @@ public class PlayerController : MonoBehaviour
 	private Animator anim;
 
 	[Header("Inputs")]
-	PlayerInputActions inputActions;
+	public float leftVib;
+	public float rightVib;
 	private bool holdJump;
+	private Vector2 moveInput;
+	PlayerInputActions inputActions;
 
 	[HideInInspector]
 	public Vector2 move;
-	private Vector2 moveInput;
 
 	private void Awake()
 	{
@@ -73,7 +86,7 @@ public class PlayerController : MonoBehaviour
 		inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
 		inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
 
-		inputActions.Player.Jump.performed += ctx => holdJump = true;
+		inputActions.Player.Jump.started += ctx => holdJump = true;
 		inputActions.Player.Jump.canceled += ctx => holdJump = false;
 	}
 
@@ -81,26 +94,28 @@ public class PlayerController : MonoBehaviour
     {
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
+
+		stateCounter = stateTime;
 	}
 
     void Update()
     {
-		/*move.x = Input.GetAxisRaw("Horizontal");
-		move.y = Input.GetAxisRaw("Vertical");*/
-
 		move.x = moveInput.x;
 		move.y = moveInput.y;
 
 		Animations();
-		Checks();
+		CoyoteJump();
 		Jump();
+		WallJump();
+		Dash();
+		StateControl();
 
-		if (isGrounded)
+		if (isGrounded && !isDashing)
 		{
 			canDash = true;
 		}
 
-		if (!isGrounded && isOnWall && move.x != 0 && rb.velocity.y < 0)
+		if (!isGrounded && isOnWall && move.x != 0 && rb.velocity.y < 0 && !isDashing)
 		{
 			isWallSliding = true;
 		}
@@ -109,52 +124,7 @@ public class PlayerController : MonoBehaviour
 			isWallSliding = false;
 		}
 
-		if (isWallSliding && inputActions.Player.Jump.triggered)
-		{
-			Vector2 force = new Vector2(
-				wallJumpForce * wallJumpDirection.x * -facingDir,
-				wallJumpForce * wallJumpDirection.y
-			);
-
-			rb.velocity = Vector2.zero;
-
-			rb.AddForce(force, ForceMode2D.Impulse);
-
-			isWallJumping = true;
-
-			StartCoroutine("StopMoveWall");
-		}
-
-		if (canDash && inputActions.Player.Dash.triggered)
-		{
-			isDashing = true;
-			canDash = false;
-			
-			if (move.x > -0.3f && move.x < 0.3f && move.y > -0.3f && move.y < 0.3f)
-			{
-				dashDir.x = facingDir;
-			}
-			else if (move.x > 0.3f || move.x < -0.3f)
-			{
-				dashDir.x = facingDir;
-			}
-
-			if (move.y > 0.3f)
-			{
-				dashDir.y = 1;
-			}
-			else if (move.y < -0.3f)
-			{
-				dashDir.y = -1;
-			}
-
-			rb.velocity = Vector2.zero;
-			rb.AddForce(dashDir * dashSpeed, ForceMode2D.Impulse);
-
-			StartCoroutine("StopMoveDash");
-		}
-
-		if (move.x * facingDir < 0 && !isWallJumping)
+		if (move.x * facingDir < 0 && !isWallJumping && !isDashing)
 		{
 			FLip();
 		}
@@ -169,33 +139,43 @@ public class PlayerController : MonoBehaviour
 			Move();
 		}
 
+		Checks();
 		WallSlide();		
 	}
 
 	void Animations()
 	{
-		anim.SetFloat("velocityY", rb.velocity.y);
-
-		if (isGrounded)
+		if (!isDashing)
 		{
+			anim.SetFloat("velocityY", rb.velocity.y);
 
-			if (move.x != 0)
+			anim.SetBool("Dash", false);
+
+			if (isGrounded)
 			{
-				anim.SetBool("Walk", true);
+
+				if (move.x != 0)
+				{
+					anim.SetBool("Walk", true);
+				}
+				else
+				{
+					anim.SetBool("Walk", false);
+				}
 			}
 			else
 			{
 				anim.SetBool("Walk", false);
 			}
+
+			if (isWallJumping || isJumping)
+			{
+				anim.SetTrigger("Jump");
+			}
 		}
 		else
 		{
-			anim.SetBool("Walk", false);
-		}
-
-		if (inputActions.Player.Jump.triggered)
-		{
-			anim.SetTrigger("Jump");
+			anim.SetBool("Dash", true);
 		}
 	}
 
@@ -212,9 +192,28 @@ public class PlayerController : MonoBehaviour
 		rb.velocity = new Vector2(move.x * speed, rb.velocity.y);
 	}
 
+	void CoyoteJump()
+	{
+		if (inputActions.Player.Jump.triggered)
+		{
+			jumpDelay = true;
+		}
+
+		if (jumpDelay)
+		{
+			coyotCounter += Time.deltaTime;
+		}
+
+		if (coyotCounter >= coyotTime)
+		{
+			jumpDelay = false;
+			coyotCounter = 0f;
+		}
+	}
+
 	void Jump()
 	{
-		if (inputActions.Player.Jump.triggered && isGrounded && !isDashing)
+		if (coyotCounter > 0 && isGrounded && !isDashing)
 		{
 			isJumping = true;
 			jumpTimerCounter = jumpTime;
@@ -252,6 +251,78 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	void WallJump()
+	{
+		if (isOnWall && inputActions.Player.Jump.triggered && !isGrounded)
+		{
+			Vector2 force = new Vector2(
+				wallJumpForce * wallJumpDirection.x * -facingDir,
+				wallJumpForce * wallJumpDirection.y
+			);
+
+			rb.velocity = Vector2.zero;
+
+			rb.AddForce(force, ForceMode2D.Impulse);
+
+			isWallJumping = true;
+
+			StartCoroutine("StopMoveWall");
+		}
+	}
+
+	void Dash()
+	{
+		if (canDash && inputActions.Player.Dash.triggered)
+		{
+			isDashing = true;
+			canDash = false;
+			isJumping = false;
+			canMove = false;
+
+			if (move.x > -0.3f && move.x < 0.3f && move.y > -0.3f && move.y < 0.3f)
+			{
+				dashDir.x = facingDir;
+			}
+			else if (move.x > 0.3f || move.x < -0.3f)
+			{
+				dashDir.x = facingDir;
+
+				if (move.y > 0.3f || move.y < -0.3f)
+				{
+					dashDir.x = 0.7f * facingDir;
+				}
+			}
+
+			if (move.y > 0.3f)
+			{
+				dashDir.y = 1;
+			}
+			else if (move.y < -0.3f)
+			{
+				dashDir.y = -1;
+			}
+
+			if (move.x == 0 && move.y == -1)
+			{
+				dashDir.y = -2;
+			}
+
+			rb.velocity = Vector2.zero;
+			rb.AddForce(dashDir * dashSpeed, ForceMode2D.Impulse);
+
+			dashTrail.emitting = true;
+
+			if (Gamepad.current != null)
+			{
+				Gamepad.current.SetMotorSpeeds(leftVib, rightVib);
+			}
+
+			Camera.main.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
+
+			StartCoroutine("StopMoveDash");
+		}
+	}
+
 	void Checks()
 	{
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
@@ -266,16 +337,46 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	void StateControl()
+	{
+		if (state == "light")
+		{
+			stateCounter -= Time.deltaTime;
+
+			if (stateCounter <= 0)
+			{
+				dissolve.isDissolving = true;
+			}
+		}
+
+		if (state == "dark" && stateCounter < stateTime)
+		{
+			stateCounter += Time.deltaTime * 2;
+		}
+
+		if (stateCounter >= stateTime)
+		{
+			stateCounter = stateTime;
+		}
+	}
+
 	IEnumerator StopMoveWall()
 	{
 		canMove = false;
 
-		FLip();
+		if (!isDashing)
+		{
+			FLip();
+		}
 
 		yield return new WaitForSeconds(waitTime);
 
 		isWallJumping = false;
-		canMove = true;
+
+		if (!isDashing)
+		{
+			canMove = true;
+		}
 	}
 
 	IEnumerator StopMoveDash()
@@ -285,13 +386,42 @@ public class PlayerController : MonoBehaviour
 
 		yield return new WaitForSeconds(dashTime);
 
+		if (Gamepad.current != null)
+		{
+			Gamepad.current.SetMotorSpeeds(0f, 0f);
+		}
+
+		dashTrail.emitting = false;
+
 		rb.gravityScale = gravity;
 
 		rb.velocity = Vector2.zero;
+
+		if (dashDir.y == -1f)
+		{
+			rb.velocity = new Vector2(0f, rb.velocity.y);
+		}
+
 		dashDir = Vector2.zero;
 
 		isDashing = false;
 		canMove = true;
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider.CompareTag("Ground"))
+		{
+			dashTrail.emitting = false;
+
+			rb.gravityScale = gravity;
+
+			rb.velocity = Vector2.zero;
+			dashDir = Vector2.zero;
+
+			isDashing = false;
+			canMove = true;
+		}
 	}
 
 	private void OnDrawGizmos()
@@ -314,6 +444,7 @@ public class PlayerController : MonoBehaviour
 	{
 		inputActions.Enable();
 	}
+
 	private void OnDisable()
 	{
 		inputActions.Disable();

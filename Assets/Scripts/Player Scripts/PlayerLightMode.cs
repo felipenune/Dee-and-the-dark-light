@@ -23,27 +23,37 @@ public class PlayerLightMode : MonoBehaviour
     
     void Update()
     {
-		anim.SetFloat("velocityY", player.GetComponent<Rigidbody2D>().velocity.y);
-
-		if (player.isGrounded)
+		if (!player.isDashing)
 		{
-			if (player.move.x != 0)
+			anim.SetFloat("velocityY", player.GetComponent<Rigidbody2D>().velocity.y);
+
+			anim.SetBool("Dash", false);
+
+			if (player.isGrounded)
 			{
-				anim.SetBool("Walk", true);
+				if (player.move.x != 0)
+				{
+					anim.SetBool("Walk", true);
+				}
+				else
+				{
+					anim.SetBool("Walk", false);
+				}
 			}
 			else
 			{
 				anim.SetBool("Walk", false);
 			}
-		}
-		else
-		{
-			anim.SetBool("Walk", false);
+
+			if (player.isWallJumping || player.isJumping)
+			{
+				anim.SetTrigger("Jump");
+			}
 		}
 
-		if (inputActions.Player.Jump.triggered)
+		else
 		{
-			anim.SetTrigger("Jump");
+			anim.SetBool("Dash", true);
 		}
 	}
 

@@ -39,12 +39,12 @@ public class Ghost : MonoBehaviour
 					ghostSprite.color = spriteColors[1];
 				}
 
-				Destroy(currentGhost, 0.5f);
+				Destroy(currentGhost, 1f);
 			}
 		}
 		else if (!player.isDashing)
 		{
-			spawnTime = 0f;
+			spawCounter = spawnTime;
 		}
 	}
 }
