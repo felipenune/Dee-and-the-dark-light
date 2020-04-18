@@ -29,7 +29,7 @@ public class PlayerLightMode : MonoBehaviour
 
 			anim.SetBool("Dash", false);
 
-			if (player.isGrounded)
+			if (player.isGrounded && !player.isOnWall)
 			{
 				if (player.move.x != 0)
 				{

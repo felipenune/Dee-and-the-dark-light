@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
+using Cinemachine;
 using UnityEngine.InputSystem;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine;
@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour
 {
 	[Header("Standart")]
 	public float gravity;
+	public bool active = true;
 
 	[Header("Movement")]
 	public float speed;
-	private bool canMove = true;
+	public bool canMove = true;
 
 	[Header("Jump")]
 	public float jumpForce;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Dash")]
 	public TrailRenderer dashTrail;
+	public CinemachineVirtualCamera cam;
 	public float dashSpeed;
 	public float dashTime;
 	public bool isDashing;
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
 	public Dissolve dissolve;
 	public string state = "dark";
 	public float stateTime;
-	private float stateCounter;
+	public float stateCounter;
 
 	[Header("Ground Check")]
 	public Transform groundCheck;
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
 	public Transform wallCheck;
 	public LayerMask whatIsWall;
 	public float checkDistance;
-	private bool isOnWall;
+	public bool isOnWall;
 
 	[Header("Directions")]
 	private int facingDir = 1;
@@ -100,47 +102,51 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-		move.x = moveInput.x;
-		move.y = moveInput.y;
-
-		Animations();
-		CoyoteJump();
-		Jump();
-		WallJump();
-		Dash();
-		StateControl();
-
-		if (isGrounded && !isDashing)
+		if (active)
 		{
-			canDash = true;
-		}
+			move.x = moveInput.x;
+			move.y = moveInput.y;
 
-		if (!isGrounded && isOnWall && move.x != 0 && rb.velocity.y < 0 && !isDashing)
-		{
-			isWallSliding = true;
-		}
-		else
-		{
-			isWallSliding = false;
-		}
+			Animations();
+			CoyoteJump();
+			Jump();
+			WallJump();
+			Dash();
+			StateControl();
 
-		if (move.x * facingDir < 0 && !isWallJumping && !isDashing)
-		{
-			FLip();
-		}
+			if (isGrounded && !isDashing)
+			{
+				canDash = true;
+			}
 
-		
+			if (!isGrounded && isOnWall && move.x != 0 && rb.velocity.y < 0 && !isDashing)
+			{
+				isWallSliding = true;
+			}
+			else
+			{
+				isWallSliding = false;
+			}
+
+			if (move.x * facingDir < 0 && !isWallJumping && !isDashing)
+			{
+				FLip();
+			}
+		}
 	}
 
 	private void FixedUpdate()
 	{
-		if (canMove)
+		if (active)
 		{
-			Move();
-		}
+			if (canMove)
+			{
+				Move();
+			}
 
-		Checks();
-		WallSlide();		
+			Checks();
+			WallSlide();
+		}		
 	}
 
 	void Animations()
@@ -151,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
 			anim.SetBool("Dash", false);
 
-			if (isGrounded)
+			if (isGrounded && !isOnWall)
 			{
 
 				if (move.x != 0)
@@ -317,7 +323,7 @@ public class PlayerController : MonoBehaviour
 				Gamepad.current.SetMotorSpeeds(leftVib, rightVib);
 			}
 
-			Camera.main.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
+			cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1;
 
 			StartCoroutine("StopMoveDash");
 		}
@@ -390,6 +396,8 @@ public class PlayerController : MonoBehaviour
 		{
 			Gamepad.current.SetMotorSpeeds(0f, 0f);
 		}
+
+		cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
 
 		dashTrail.emitting = false;
 
