@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 	public float leftVib;
 	public float rightVib;
 	private bool holdJump;
-	private Vector2 moveInput;
+	public Vector2 moveInput;
 	PlayerInputActions inputActions;
 
 	[HideInInspector]
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-		if (active)
+		if (active && !PauseMenu.gameIsPaused)
 		{
 			move.x = moveInput.x;
 			move.y = moveInput.y;
@@ -132,6 +132,16 @@ public class PlayerController : MonoBehaviour
 			{
 				FLip();
 			}
+		}
+
+		if (PauseMenu.gameIsPaused)
+		{
+			if (Gamepad.current != null)
+			{
+				Gamepad.current.SetMotorSpeeds(0f, 0f);
+			}
+
+			moveInput = Vector2.zero;
 		}
 	}
 
